@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Schéma des flux" id="d1">
+    <mxGraphModel dx="1894" dy="1019" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="inet" parent="1" style="rounded=1;arcSize=5;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;strokeWidth=1.5;fontSize=12;fontColor=#111;align=center;verticalAlign=middle;" value="&lt;b&gt;INTERNET&lt;/b&gt;&lt;br&gt;Clients du site · tout le monde" vertex="1">
+          <mxGeometry height="80" width="300" x="600" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="adm" parent="1" style="rounded=1;arcSize=5;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;strokeWidth=1.5;fontSize=11;fontColor=#111;align=center;verticalAlign=middle;" value="&lt;b&gt;Administrateur distant&lt;/b&gt;&lt;br&gt;Poste perso + client WireGuard" vertex="1">
+          <mxGeometry height="80" width="300" x="1150" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dmz" parent="1" style="rounded=1;arcSize=5;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5;fontSize=12;fontColor=#111;align=center;verticalAlign=middle;" value="&lt;b&gt;ZONE DMZ — VLAN 10&lt;/b&gt;&lt;br&gt;VM-DMZ-WEB · Nginx&lt;br&gt;10.10.10.0/24" vertex="1">
+          <mxGeometry height="170" width="330" x="40" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="lan" parent="1" style="rounded=1;arcSize=5;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.5;fontSize=12;fontColor=#111;align=center;verticalAlign=middle;" value="&lt;b&gt;ZONE LAN — VLAN 20&lt;/b&gt;&lt;br&gt;AD/DNS · Fichiers · BDD&lt;br&gt;10.10.20.0/24" vertex="1">
+          <mxGeometry height="170" width="330" x="1130" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="mgmt" parent="1" style="rounded=1;arcSize=5;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=1.5;fontSize=12;fontColor=#111;align=center;verticalAlign=middle;" value="&lt;b&gt;ZONE MANAGEMENT — VLAN 99&lt;/b&gt;&lt;br&gt;VM-ADMIN (bastion)&lt;br&gt;10.10.99.0/24" vertex="1">
+          <mxGeometry height="170" width="330" x="40" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="sup" parent="1" style="rounded=1;arcSize=5;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=1.5;fontSize=12;fontColor=#111;align=center;verticalAlign=middle;" value="&lt;b&gt;ZONE SUPERVISION — VLAN 30&lt;/b&gt;&lt;br&gt;Wazuh · Backup (PBS)&lt;br&gt;10.10.30.0/24" vertex="1">
+          <mxGeometry height="170" width="330" x="1130" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="fw" parent="1" style="rounded=1;arcSize=5;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2.5;fontSize=12;fontColor=#111;align=center;verticalAlign=middle;" value="&lt;b&gt;PARE-FEU OPNsense&lt;/b&gt;&lt;br&gt;Tous les flux inter-zones le traversent&lt;br&gt;Politique par défaut : DENY + log" vertex="1">
+          <mxGeometry height="130" width="300" x="600" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="x0" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c62828;strokeWidth=1.5;fontSize=13;fontColor=#c62828;align=center;verticalAlign=middle;" value="✖" vertex="1">
+          <mxGeometry height="26" width="26" x="737" y="337" as="geometry" />
+        </mxCell>
+        <mxCell id="x1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c62828;strokeWidth=1.5;fontSize=13;fontColor=#c62828;align=center;verticalAlign=middle;" value="✖" vertex="1">
+          <mxGeometry height="26" width="26" x="587" y="397" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" edge="1" parent="1" source="inet" style="edgeStyle=none;html=1;strokeColor=#2e7d32;strokeWidth=2.2;fontSize=10;fontColor=#2e7d32;fontStyle=1;labelBackgroundColor=#ffffff;exitX=0.1333;exitY=1.0;entryX=0.6364;entryY=0.0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" target="dmz" value="R1 · 443/tcp (80 → 443)">
+          <mxGeometry relative="1" x="-0.09999999999999998" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="inet" style="edgeStyle=none;html=1;strokeColor=#c62828;strokeWidth=2.2;fontSize=10;fontColor=#c62828;fontStyle=1;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;dashed=1;" target="fw" value="R10 · Internet → LAN/MGMT/SUP : DENY">
+          <mxGeometry relative="1" x="-0.09999999999999998" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="adm" style="edgeStyle=none;html=1;strokeColor=#2e7d32;strokeWidth=2.2;fontSize=10;fontColor=#2e7d32;fontStyle=1;labelBackgroundColor=#ffffff;exitX=0.1667;exitY=1.0;entryX=0.9;entryY=0.0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" target="fw" value="R2 · UDP 51820 (WireGuard)">
+          <mxGeometry relative="1" x="-0.19999999999999996" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="dmz" style="edgeStyle=none;html=1;strokeColor=#c62828;strokeWidth=2.2;fontSize=10;fontColor=#c62828;fontStyle=1;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.4706;entryX=0.0;entryY=0.4615;exitDx=0;exitDy=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;dashed=1;" target="fw" value="R3 · DMZ → LAN : DENY">
+          <mxGeometry relative="1" x="-0.16000000000000003" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="dmz" style="edgeStyle=none;html=1;strokeColor=#2e7d32;strokeWidth=2.2;fontSize=10;fontColor=#2e7d32;fontStyle=1;labelBackgroundColor=#ffffff;exitX=0.9091;exitY=1.0;entryX=0.0606;entryY=0.0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" target="sup" value="R4 · 1514/tcp logs Wazuh">
+          <mxGeometry relative="1" x="0.56" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="lan" style="edgeStyle=none;html=1;strokeColor=#2e7d32;strokeWidth=2.2;fontSize=10;fontColor=#2e7d32;fontStyle=1;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" target="sup" value="R5 · 1514/1515 + 8007">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="mgmt" style="edgeStyle=none;html=1;strokeColor=#2e7d32;strokeWidth=2.2;fontSize=10;fontColor=#2e7d32;fontStyle=1;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.1765;entryX=0.1667;entryY=1.0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" target="fw" value="R7 · 443 (GUI OPNsense)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="mgmt" style="edgeStyle=none;html=1;strokeColor=#2e7d32;strokeWidth=2.2;fontSize=10;fontColor=#2e7d32;fontStyle=1;labelBackgroundColor=#ffffff;exitX=0.3333;exitY=0.0;entryX=0.3333;entryY=1.0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" target="dmz" value="R8 · SSH 22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="mgmt" style="edgeStyle=none;html=1;strokeColor=#2e7d32;strokeWidth=2.2;fontSize=10;fontColor=#2e7d32;fontStyle=1;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.1176;entryX=0.0606;entryY=1.0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" target="lan" value="R8 · 22 / 3389 / 445">
+          <mxGeometry relative="1" x="-0.6" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="mgmt" style="edgeStyle=none;html=1;strokeColor=#2e7d32;strokeWidth=2.2;fontSize=10;fontColor=#2e7d32;fontStyle=1;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.5882;entryX=0.0;entryY=0.5882;exitDx=0;exitDy=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" target="sup" value="R9 · 443 (Wazuh UI) · 8007 (PBS UI)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

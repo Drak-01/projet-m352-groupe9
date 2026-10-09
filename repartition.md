@@ -9,7 +9,7 @@ Chaque membre prend en charge un VLAN de bout en bout : VMs, services exposés, 
 | Partie | Périmètre | Interface OPNsense | Réseau | Responsable |
 |---|---|---|---|---|
 | 0 | Socle OPNsense, WAN, VPN, intégration, tests globaux | em0 (WAN) | 10.0.2.0/24 (NAT) | MOUKPE Wisdom Essomadaw |
-| 1 | DMZ : Nginx | em1 | 10.10.10.0/24 (VLAN 10) | |
+| 1 | DMZ : Nginx | em1 | 10.10.10.0/24 (VLAN 10) | Badra Aliou Keita |
 | 2 | LAN : réseau, règles, PostgreSQL, serveur de fichiers | em2 | 10.10.20.0/24 (VLAN 20) | |
 | 3 | LAN : AD, DNS, DHCP | em2 | 10.10.20.0/24 (VLAN 20) | |
 | 4 | Management : bastion administrateur | em3 | 10.10.99.0/24 (VLAN 99) | |

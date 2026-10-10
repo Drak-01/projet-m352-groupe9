@@ -1,0 +1,9 @@
+[Interface]
+PrivateKey = <A_GENERER_COTE_CLIENT>
+Address = 10.10.100.X/32
+
+[Peer]
+PublicKey = <CLE_PUBLIQUE_SERVEUR_WG0>
+PresharedKey = <A_GENERER_PAR_OPNSENSE>
+Endpoint = <IP_OU_DOMAINE_PUBLIC_WAN>:51820
+AllowedIPs = 10.10.100.0/24, 10.10.99.0/24

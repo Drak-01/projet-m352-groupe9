@@ -1,0 +1,10 @@
+# Secrets WireGuard (clés privées, configs clients réels)
+*.conf
+conf.txt
+*-private.key
+*.ovpn
+
+# Captures de travail personnelles (si tu ne veux pas les versionner)
+WISDOM/*.png
+WISDOM/conf.txt
+WISDOM/*.xml

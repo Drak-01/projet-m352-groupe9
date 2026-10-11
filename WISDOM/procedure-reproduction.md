@@ -2,6 +2,33 @@
 
 Responsable : MOUKPE Wisdom Essomadaw
 
+## 0. Démarrage rapide — importer VM-FW déjà configurée
+
+Si tu n'as pas besoin de reconstruire la VM depuis zéro (voir sections suivantes), utilise directement l'export fourni.
+
+**Fichier `VM-FW.ova` :** transmis physiquement (disque dur externe) au membre suivant dans la chaîne. Pas de lien numérique — si tu as besoin du fichier et que tu ne l'as pas reçu, contacte MOUKPE Wisdom Essomadaw directement.
+
+**Import dans VirtualBox :**
+1. Fichier → Importer un service virtuel
+2. Sélectionne `VM-FW.ova`
+3. Laisse les réglages par défaut (ou renomme la VM si tu en gères déjà une homonyme)
+4. Import
+
+**Réseaux internes :** les "Réseaux internes" (`intnet-dmz`, `intnet-lan`, `intnet-mgmt`, `intnet-sup`) ne sont pas des objets à créer à part — ce sont juste des noms. Ils existent automatiquement dès qu'une VM (la tienne ou VM-FW) a un adaptateur configuré en "Réseau interne" avec ce nom exact. Après l'import, connecte simplement tes propres VMs aux mêmes noms de réseaux internes pour qu'elles communiquent avec VM-FW.
+
+**Ce qui est déjà configuré dans cet export, tu n'as rien à refaire :**
+- Les 5 interfaces du projet (WAN, DMZ, LAN, MGMT, SUP) avec leurs IPs
+- Les aliases (WAZUH, PBS, SERVEURS_LAN, DEPOTS_MAJ)
+- R1 (DNAT HTTPS vers DMZ), R2 (WireGuard)
+- Le serveur WireGuard (instance `wg0`)
+- R10 sur l'interface DMZ (bloquer tout, en dernier)
+- Un accès admin temporaire OPT4 — voir section 6 ci-dessous, **ne pas t'appuyer dessus** pour ta propre configuration, c'est un accès de confort partagé en attendant VM-ADMIN
+
+**Ce que toi, responsable de ta propre partie, dois ajouter :**
+- Tes VMs connectées au bon réseau interne (`intnet-dmz`, `intnet-lan`, `intnet-mgmt` ou `intnet-sup` selon ta partie)
+- Tes propres règles de pare-feu sur **ton interface uniquement** (voir règle 5 des consignes communes), avec ton R10 si applicable
+- Identifiants de connexion à VM-FW : demande-les en privé au groupe (jamais dans Git)
+
 ## 1. Création de la VM-FW
 
 | Paramètre | Valeur |
